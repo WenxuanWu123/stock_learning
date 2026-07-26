@@ -15,11 +15,32 @@
 ## 二、改了内容之后
 
 ```bash
-./rebuild.sh    # 删库重建：重新注入全部数字、重新渲染课文
+./check.sh      # 先自检（不碰数据库，几秒钟）
+./rebuild.sh    # 再删库重建：重新注入全部数字、重新渲染课文
 ```
 
 网页上的课文和题目全部来自数据库，数据库全部来自 `content/` + `levels/` + `data/`，
 所以**改完文件跑一次 `./rebuild.sh` 就生效**。
+
+## 二·五、新增内容后如何自检
+
+```bash
+./check.sh                          # 全量检查 content/ + levels/
+./check.sh content/indicators/      # 只查某个目录
+./check.sh levels/02-xxx.json       # 只查某个文件
+```
+
+检查内容（全程只读，在临时数据库副本上试算，**不动 `stock_learning.db`**，
+
+多人/多进程同时跑互不干扰）：
+
+- `quiz.json`：JSON 语法、必须有 10 题、每题 4 个选项、`answer` 在 0~3、解析必填
+- `lesson.md`：front-matter 必须有 `title` / `order` / `sources`（至少一条）
+- `levels/*.json`：必填字段、`symbol` 合法、决策日有行情、`score` 在 0~100
+- 所有 `{{calc:...}}` 占位符逐个实际求值，写错的会列出**文件:行号:原因**
+
+全部通过打印 `✓` 且退出码 0；任一失败打印 `✗` 问题清单且退出码非 0。
+**自检绿了再 `./rebuild.sh`**，基本就不会重建失败了。
 
 ## 三、怎么加新课文和题目
 
@@ -86,6 +107,8 @@ sources:
 
 ```
 run.sh / rebuild.sh      起站 / 重建数据库
+check.sh                 内容自检（新增内容后先跑它）
+scripts/check_content.py 自检实现（不用碰）
 requirements.txt         Python 依赖（锁版本）
 .venv/                   Python 环境（不进 git）
 stock_learning.db        SQLite 数据库（不进 git，rebuild.sh 重建）
@@ -101,7 +124,7 @@ private/                 隐私文件（交割单等，gitignore，不会进仓�
 ## 六、常见问题
 
 - **页面没变化？** 改完内容要跑 `./rebuild.sh`，再刷新浏览器。
-- **rebuild 报错？** 多半是 JSON 少逗号、front-matter 缺字段，或 calc 占位符写错，
-  报错信息会指出是哪个文件、哪个占位符。
+- **rebuild 报错？** 先跑 `./check.sh`，它会列出是哪个文件哪一行：多半是 JSON 少逗号、
+  front-matter 缺字段，或 calc 占位符写错。
 - **答题记录会丢吗？** `./rebuild.sh` 会连答题记录一起重建（清空）。
   正常学习不要频繁 rebuild，只在改内容后用。
