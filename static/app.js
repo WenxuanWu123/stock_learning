@@ -224,14 +224,65 @@
 
       html += '<div class="card"><h2>错题本（' + d.wrongbook.length + '）</h2>';
       if (!d.wrongbook.length) html += '<p class="muted">暂无错题，继续保持。</p>';
-      d.wrongbook.forEach(function (w) {
-        html += '<div style="border-bottom:1px dashed #eee;padding:10px 0">' +
-          '<div class="muted">' + esc(w.chapter_title) + ' · 错 ' + w.wrong_count +
-          ' 次 · ' + esc(w.last_ts) + '</div>' + esc(w.q) +
-          ' <a href="#/quiz/' + w.chapter_id + '">去重练 →</a></div>';
-      });
+      else html += '<p>有 ' + d.wrongbook.length + ' 道错题待消灭。</p>' +
+        '<p style="margin-top:12px"><a class="btn" href="#/wrongbook">去错题本重练 →</a></p>';
       html += '</div>';
       app.innerHTML = html;
+    });
+  }
+
+  /* ── 错题本：独立重练页 ── */
+  function renderWrongbook() {
+    api('/api/wrongbook').then(function (d) {
+      var items = d.items, cur = 0, cleared = 0;
+      if (!items.length) {
+        app.innerHTML = '<div class="card"><h2>错题本</h2>' +
+          '<p class="muted">暂无错题，继续保持。</p>' +
+          '<p style="margin-top:14px"><a class="btn ghost" href="#/stats">返回成绩</a></p></div>';
+        return;
+      }
+      function show() {
+        if (cur >= items.length) {
+          app.innerHTML = '<div class="card"><h2>本轮重练完成！</h2>' +
+            '<p>共 ' + items.length + ' 道错题，答对移出 <b class="up">' + cleared + '</b> 道' +
+            (cleared < items.length ? '，剩余 <b class="down">' + (items.length - cleared) +
+            '</b> 道留在错题本' : '，错题本已清空') + '。</p>' +
+            '<p style="margin-top:14px"><a class="btn" href="#/wrongbook">再练一轮</a> ' +
+            '<a class="btn ghost" href="#/stats">返回成绩</a></p></div>';
+          return;
+        }
+        var w = items[cur];
+        var html = '<div class="card"><div class="progress">错题 ' + (cur + 1) + ' / ' +
+          items.length + ' · ' + esc(w.chapter_title) + ' · 已错 ' + w.wrong_count + ' 次</div>' +
+          '<div class="quiz-q">' + esc(w.q) + '</div>';
+        w.options.forEach(function (o, i) {
+          html += '<button class="opt" data-i="' + i + '">' +
+            String.fromCharCode(65 + i) + '. ' + esc(o) + '</button>';
+        });
+        html += '<div id="feedback"></div></div>';
+        app.innerHTML = html;
+        app.querySelectorAll('.opt').forEach(function (b) {
+          b.onclick = function () {
+            var chosen = parseInt(b.dataset.i, 10);
+            post('/api/answers', { question_id: w.question_id, chosen: chosen }).then(function (r) {
+              app.querySelectorAll('.opt').forEach(function (x, i) {
+                x.disabled = true;
+                if (i === r.answer) x.classList.add('right');
+                else if (i === chosen) x.classList.add('wrong');
+              });
+              if (r.correct) cleared++;
+              document.getElementById('feedback').innerHTML =
+                '<div class="expl"><b>' + (r.correct ? '✓ 答对了，已移出错题本' :
+                '✗ 又错了，正确答案：' + String.fromCharCode(65 + r.answer) + '，继续留在错题本') +
+                '</b><br>' + esc(r.explanation) +
+                '</div><p style="margin-top:12px"><button class="btn" id="next">' +
+                (cur + 1 < items.length ? '下一道' : '查看结果') + '</button></p>';
+              document.getElementById('next').onclick = function () { cur++; show(); };
+            });
+          };
+        });
+      }
+      show();
     });
   }
 
@@ -245,6 +296,7 @@
     else if ((m = h.match(/^#\/level\/(\d+)/))) renderLevel(m[1]);
     else if (h === '#/levels') renderLevels();
     else if (h === '#/stats') renderStats();
+    else if (h === '#/wrongbook') renderWrongbook();
     else renderHome();
   }
   window.addEventListener('hashchange', route);
