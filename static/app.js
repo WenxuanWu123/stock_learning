@@ -6,7 +6,7 @@
   var themeBtn = document.getElementById('theme-btn');
   function paintThemeBtn() {
     var dark = document.documentElement.dataset.theme === 'dark';
-    themeBtn.textContent = dark ? '☀️ 亮色' : '🌙 暗色';
+    themeBtn.textContent = dark ? '切换亮色' : '切换暗色';
   }
   themeBtn.onclick = function () {
     var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
