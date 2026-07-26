@@ -51,6 +51,18 @@ nav a:hover { color: var(--accent); }
 }
 .theme-btn:hover { border-color: var(--accent); }
 main { max-width: 880px; margin: 24px auto; padding: 0 16px; }
+.module-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+  align-items: start;
+  /* 突破 main 的 880 限宽，四宫格占满更宽版面 */
+  width: min(1200px, calc(100vw - 32px));
+  position: relative; left: 50%; transform: translateX(-50%);
+}
+.module-card { margin-bottom: 0; }
+.module-card .chapter-link { background: var(--opt-bg); }
+@media (max-width: 900px) {
+  .module-grid { grid-template-columns: 1fr; }
+}
 footer { text-align: center; color: var(--muted); font-size: 12px; padding: 32px 0; }
 
 .card {

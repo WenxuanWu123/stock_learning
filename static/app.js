@@ -39,18 +39,20 @@
   /* ── 首页：模块 / 章节导航 ── */
   function renderHome() {
     api('/api/modules').then(function (d) {
-      var html = '';
+      var html = '<div class="module-grid">';
       d.modules.forEach(function (m) {
-        html += '<div class="module-title">' + esc(m.title) + '</div>';
+        html += '<div class="card module-card"><h2>' + esc(m.title) + '</h2>';
         if (!m.chapters.length) {
-          html += '<div class="muted" style="margin-bottom:10px">（内容建设中）</div>';
+          html += '<div class="muted">（内容建设中）</div>';
         }
         m.chapters.forEach(function (c) {
           html += '<div class="chapter-link"><span>' + esc(c.title) + '</span>' +
             '<span class="actions"><a href="#/lesson/' + c.id + '">读课文</a>' +
             '<a href="#/quiz/' + c.id + '">闯关答题</a></span></div>';
         });
+        html += '</div>';
       });
+      html += '</div>';
       app.innerHTML = html;
     });
   }
