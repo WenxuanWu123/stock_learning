@@ -4,6 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>A股投资互动教学站</title>
+<script>
+/* 首帧前确定主题，避免闪烁：localStorage 优先，其次跟随系统 */
+(function () {
+  var t = localStorage.getItem('theme') ||
+    (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  document.documentElement.dataset.theme = t;
+})();
+</script>
 <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
@@ -13,6 +21,7 @@
     <a href="#/">课程</a>
     <a href="#/levels">实战关卡</a>
     <a href="#/stats">成绩</a>
+    <button id="theme-btn" class="theme-btn" title="切换亮/暗色"></button>
   </nav>
 </header>
 <main id="app">加载中…</main>

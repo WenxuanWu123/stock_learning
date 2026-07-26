@@ -19,6 +19,12 @@ function drawCandles(canvas, candles, opts) {
 
   var padL = 8, padR = 56, padT = 12, volH = Math.round(H * 0.16), gap = 6;
   var priceH = H - padT - volH - gap - 18;
+  // 跟随主题的图表配色（CSS 变量在 style.css 的 :root / [data-theme="dark"] 中定义）
+  var css = getComputedStyle(document.documentElement);
+  var gridColor = css.getPropertyValue('--chart-grid').trim() || '#eeeeee';
+  var textColor = css.getPropertyValue('--chart-text').trim() || '#999999';
+  var upColor = css.getPropertyValue('--chart-up').trim() || '#d43030';
+  var downColor = css.getPropertyValue('--chart-down').trim() || '#1a9e54';
   var lo = Math.min.apply(null, all.map(function (c) { return c.low; }));
   var hi = Math.max.apply(null, all.map(function (c) { return c.high; }));
   if (hi === lo) { hi += 1; }
@@ -31,7 +37,7 @@ function drawCandles(canvas, candles, opts) {
   function x(i) { return padL + slot * (i + 0.5); }
 
   // 网格与右侧刻度
-  ctx.strokeStyle = '#eee'; ctx.fillStyle = '#999'; ctx.font = '11px sans-serif';
+  ctx.strokeStyle = gridColor; ctx.fillStyle = textColor; ctx.font = '11px sans-serif';
   ctx.textAlign = 'left';
   for (var g = 0; g <= 4; g++) {
     var pv = lo + (hi - lo) * g / 4, yy = y(pv);
@@ -50,7 +56,7 @@ function drawCandles(canvas, candles, opts) {
   for (var i = 0; i < n; i++) {
     var c = all[i];
     var up = c.close >= c.open;
-    ctx.strokeStyle = ctx.fillStyle = up ? '#d43030' : '#1a9e54';
+    ctx.strokeStyle = ctx.fillStyle = up ? upColor : downColor;
     ctx.beginPath(); ctx.moveTo(x(i), y(c.high)); ctx.lineTo(x(i), y(c.low)); ctx.stroke();
     var yO = y(c.open), yC = y(c.close);
     var top = Math.min(yO, yC), hgt = Math.max(1, Math.abs(yO - yC));
@@ -74,7 +80,7 @@ function drawCandles(canvas, candles, opts) {
   }
 
   // 首尾日期
-  ctx.fillStyle = '#999'; ctx.textAlign = 'left';
+  ctx.fillStyle = textColor; ctx.textAlign = 'left';
   ctx.fillText(all[0].date, padL, H - 4);
   ctx.textAlign = 'right';
   ctx.fillText(all[n - 1].date, W - padR, H - 4);

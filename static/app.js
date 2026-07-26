@@ -2,6 +2,21 @@
 (function () {
   var app = document.getElementById('app');
 
+  /* ── 亮/暗色切换 ── */
+  var themeBtn = document.getElementById('theme-btn');
+  function paintThemeBtn() {
+    var dark = document.documentElement.dataset.theme === 'dark';
+    themeBtn.textContent = dark ? '☀️ 亮色' : '🌙 暗色';
+  }
+  themeBtn.onclick = function () {
+    var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem('theme', next);
+    paintThemeBtn();
+    window.dispatchEvent(new Event('resize')); // 触发 K 线图按新主题色重绘
+  };
+  paintThemeBtn();
+
   function api(path, opts) {
     return fetch(path, opts).then(function (r) {
       if (!r.ok) return r.json().then(function (e) { throw new Error(e.detail || r.status); });
