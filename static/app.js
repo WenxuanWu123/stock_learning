@@ -297,6 +297,7 @@
     else if (h === '#/levels') renderLevels();
     else if (h === '#/stats') renderStats();
     else if (h === '#/wrongbook') renderWrongbook();
+    else if (h === '#/lab') renderLab();
     else renderHome();
   }
   window.addEventListener('hashchange', route);

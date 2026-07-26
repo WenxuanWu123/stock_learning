@@ -118,3 +118,20 @@ canvas { display: block; width: 100%; }
 .tag.gray { background: var(--tag-gray-bg); color: var(--tag-gray-text); }
 table.stats { width: 100%; border-collapse: collapse; font-size: 14px; }
 table.stats td, table.stats th { border-bottom: 1px solid var(--table-line); padding: 8px; text-align: left; }
+
+/* 实验场 */
+.lab-controls { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+.lab-ctrl { display: flex; flex-direction: column; font-size: 13px; }
+.lab-ctrl label { color: var(--muted); margin-bottom: 2px; white-space: nowrap; }
+.lab-ctrl input[type="range"] { width: 140px; accent-color: var(--accent); }
+.lab-ctrl select {
+  padding: 5px 8px; border-radius: 6px; border: 1px solid var(--opt-border);
+  background: var(--opt-bg); color: var(--text); font-size: 14px;
+}
+.lab-tab {
+  padding: 5px 14px; margin: 0 6px 6px 0; border-radius: 8px; cursor: pointer;
+  border: 1px solid var(--opt-border); background: var(--opt-bg); color: var(--text);
+  font-size: 14px;
+}
+.lab-tab:hover { border-color: var(--accent); }
+.lab-tab.active { border-color: var(--accent); color: var(--accent); font-weight: 600; }
