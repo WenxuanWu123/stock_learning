@@ -6,7 +6,7 @@ if [ ! -x .venv/bin/python ]; then
   echo "[run] 创建 .venv"
   python3 -m venv .venv
 fi
-if ! .venv/bin/python -c "import fastapi, uvicorn, markdown" 2>/dev/null; then
+if ! .venv/bin/python -c "import fastapi, uvicorn, markdown, pandas, pyarrow" 2>/dev/null; then
   echo "[run] 安装依赖"
   .venv/bin/pip install -q -r requirements.txt
 fi

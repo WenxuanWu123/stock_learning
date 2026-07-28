@@ -300,6 +300,7 @@
     else if (h === '#/stats') renderStats();
     else if (h === '#/wrongbook') renderWrongbook();
     else if (h === '#/lab') renderLab();
+    else if (h === '#/screener') renderScreener();
     else renderHome();
   }
   window.addEventListener('hashchange', route);

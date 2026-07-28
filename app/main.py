@@ -10,7 +10,7 @@ from pydantic import BaseModel
 
 from .db import connect, BASE_DIR
 from .market import get_series, SYMBOL_NAMES
-from . import lab, v5
+from . import lab, v5, screener
 
 app = FastAPI(title="A股投资互动教学站")
 STATIC_DIR = BASE_DIR / "static"
@@ -175,6 +175,13 @@ def lab_api(request: Request):
         return lab.lab_data(conn, request.query_params)
     finally:
         conn.close()
+
+
+# ── D 型 · 选股实验场 ──
+
+@app.post("/api/screener")
+def screener_api(body: screener.ScreenerIn):
+    return screener.run(body)
 
 
 # ── 成绩统计 / 错题本 ──

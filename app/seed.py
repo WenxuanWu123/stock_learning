@@ -18,12 +18,13 @@ DATA_DIR = BASE_DIR / "data"
 CONTENT_DIR = BASE_DIR / "content"
 LEVELS_DIR = BASE_DIR / "levels"
 
-# 四大模块，开工顺序固定（项目.md）
+# 五大模块，开工顺序固定（项目.md）
 MODULES = [
     ("concepts", "股市概念"),
     ("indicators", "技术指标"),
     ("macro", "宏观经济学基础"),
     ("trading", "看盘技巧"),
+    ("selection", "选股方法"),
 ]
 
 # data/ 文件名 -> symbol

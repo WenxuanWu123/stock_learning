@@ -3,3 +3,7 @@ __pycache__/
 *.pyc
 *.db
 private/
+
+# 抓取运行产物（数据本体除外）
+data/stocks/fetch.log
+data/stocks/failed.txt

@@ -147,3 +147,42 @@ table.stats td, table.stats th { border-bottom: 1px solid var(--table-line); pad
 }
 .lab-tab:hover { border-color: var(--accent); }
 .lab-tab.active { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+
+/* 选股实验场 */
+.scr-cond {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px;
+  padding: 10px 14px; margin-bottom: 8px;
+  background: var(--opt-bg); border: 1px solid var(--opt-border); border-radius: 8px;
+}
+.scr-cond.off { opacity: .55; }
+.scr-cond .nm { font-weight: 600; min-width: 104px; }
+.scr-cond .hint { color: var(--muted); font-size: 12.5px; }
+.scr-cond label { font-size: 13px; }
+.scr-cond input[type="checkbox"] { width: 16px; height: 16px; accent-color: var(--accent); }
+.scr-cond input[type="number"], .scr-base input {
+  width: 64px; padding: 4px 6px; border-radius: 6px;
+  border: 1px solid var(--opt-border); background: var(--card-bg); color: var(--text);
+  font-size: 14px;
+}
+.scr-base { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 22px; font-size: 14px; }
+.scr-base input[type="date"] { width: auto; }
+.scr-err {
+  background: var(--wrong-bg); border: 1px solid var(--wrong-border); border-radius: 8px;
+  padding: 10px 14px; margin-top: 12px; font-size: 14px;
+}
+.scr-cards {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(116px, 1fr));
+  gap: 10px; margin: 12px 0;
+}
+.scr-stat {
+  background: var(--opt-bg); border: 1px solid var(--opt-border); border-radius: 8px;
+  padding: 8px 10px; text-align: center;
+}
+.scr-stat .v { font-size: 19px; font-weight: 700; }
+.scr-stat .k { color: var(--muted); font-size: 12px; }
+table.scr-hits { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+table.scr-hits td, table.scr-hits th {
+  border-bottom: 1px solid var(--table-line); padding: 6px 8px;
+  text-align: right; white-space: nowrap;
+}
+table.scr-hits td.l, table.scr-hits th.l { text-align: left; }
