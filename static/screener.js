@@ -1,4 +1,4 @@
-/* D 型 · 选股实验场：条件勾选 + 参数输入 + 单次筛选/历史统计 + 结果统计与命中表。
+/* 选股实验场：条件勾选 + 参数输入 + 单次筛选/历史统计 + 结果统计与命中表。
    自包含模块（零依赖，风格同 lab.js），由 app.js 的路由调用 window.renderScreener()。 */
 (function () {
   /* ── 条件定义：字段默认值与后端 app/screener.py 一致 ── */
@@ -49,7 +49,7 @@
   /* ── 页面骨架 ── */
   window.renderScreener = function () {
     var app = document.getElementById('app');
-    var html = '<div class="card"><h2>D 型 · 选股实验场</h2>' +
+    var html = '<div class="card"><h2>选股实验场</h2>' +
       '<p class="muted">自由组合技术条件筛股票。别急着信——先看它在历史上的真实战绩。</p>' +
       '<div id="scr-conds" style="margin-top:12px"></div>' +
       '<div class="scr-base" style="margin-top:6px">' +

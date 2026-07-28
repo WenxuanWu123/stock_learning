@@ -11,7 +11,11 @@ function drawCandles(canvas, candles, opts) {
   if (!all.length) return;
 
   var dpr = window.devicePixelRatio || 1;
-  var W = canvas.clientWidth, H = canvas.height;
+  // 高度只认初始 HTML 属性，避免高分屏下每次重绘把高度再乘一次 dpr（越点越高）
+  if (!canvas.dataset.h) canvas.dataset.h = canvas.height;
+  var H = parseInt(canvas.dataset.h, 10);
+  canvas.style.height = H + 'px';
+  var W = canvas.clientWidth;
   canvas.width = W * dpr; canvas.height = H * dpr;
   var ctx = canvas.getContext('2d');
   ctx.scale(dpr, dpr);

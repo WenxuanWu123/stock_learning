@@ -166,7 +166,7 @@ def submit_level(level_id: int, body: LevelIn):
             "future": future, "reveal_return_pct": ret, "v5": status}
 
 
-# ── C 型参数实验场 ──
+# ── 指标实验场 ──
 
 @app.get("/api/lab")
 def lab_api(request: Request):
@@ -177,7 +177,7 @@ def lab_api(request: Request):
         conn.close()
 
 
-# ── D 型 · 选股实验场 ──
+# ── 选股实验场 ──
 
 @app.post("/api/screener")
 def screener_api(body: screener.ScreenerIn):

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""D 型 · 选股实验场：条件组合筛选 + 历史批量回测统计。
+"""选股实验场：条件组合筛选 + 历史批量回测统计。
 
 数据流：data/stocks/daily/*.parquet → scripts/build_stocks_db.py → stocks.db → 本模块。
 指标口径与 app/indicators.py 一致：MA 为简单移动平均；RSI 直接调用

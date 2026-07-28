@@ -1,4 +1,4 @@
-/* C 型 · 参数实验场：控制区 + 主图（蜡烛 + 双 MA）+ 副图（MACD/KDJ/RSI/BIAS）。
+/* 指标实验场：控制区 + 主图（蜡烛 + 双 MA）+ 副图（MACD/KDJ/RSI/BIAS）。
    自包含模块（零依赖，风格同 chart.js），由 app.js 的路由调用 window.renderLab()。 */
 (function () {
   /* ── 可调参数与默认值（与后端 app/lab.py 一致） ── */
@@ -59,7 +59,7 @@
   window.renderLab = function () {
     var app = document.getElementById('app');
     app.innerHTML =
-      '<div class="card"><h2>C 型 · 参数实验场</h2>' +
+      '<div class="card"><h2>指标实验场</h2>' +
       '<div class="lab-controls" id="lab-base"></div>' +
       '<div style="margin-top:14px"><span class="muted">副图指标：</span><span id="lab-tabs"></span></div>' +
       '<div class="lab-controls" id="lab-params" style="margin-top:12px"></div></div>' +
@@ -184,7 +184,11 @@
   /* ── 绘图公共件 ── */
   function prepCanvas(canvas) {
     var dpr = window.devicePixelRatio || 1;
-    var W = canvas.clientWidth, H = canvas.height;
+    // 高度只认初始 HTML 属性，避免高分屏下每次重绘把高度再乘一次 dpr（越点越高）
+    if (!canvas.dataset.h) canvas.dataset.h = canvas.height;
+    var H = parseInt(canvas.dataset.h, 10);
+    canvas.style.height = H + 'px';
+    var W = canvas.clientWidth;
     canvas.width = W * dpr; canvas.height = H * dpr;
     var ctx = canvas.getContext('2d');
     ctx.scale(dpr, dpr);
