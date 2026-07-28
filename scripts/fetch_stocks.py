@@ -51,7 +51,18 @@ def fetch_em(symbol: str, start_date: str, end_date: str) -> pd.DataFrame:
 
 
 def fetch_tx(symbol: str, start_date: str, end_date: str) -> pd.DataFrame:
-    """腾讯。成交量单位本来就是股。无数据时返回空 df。"""
+    """腾讯。成交量单位本来就是股。无数据时返回空 df。
+
+    akshare 的 _normalize_tx_symbol 前缀表不全（漏 302/689 等新号段），
+    这里按号段先补一次前缀：6→sh，0/2/3→sz，其余（4/8/9 北交所）→bj。
+    """
+    if not symbol.startswith(("sh", "sz", "bj")):
+        if symbol.startswith("6"):
+            symbol = "sh" + symbol
+        elif symbol.startswith(("0", "2", "3")):
+            symbol = "sz" + symbol
+        else:
+            symbol = "bj" + symbol
     df = ak.stock_zh_a_hist_tx(symbol=symbol,
                                start_date=start_date, end_date=end_date,
                                adjust="qfq")

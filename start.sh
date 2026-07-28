@@ -10,6 +10,10 @@ if ! curl -sf "$URL/api/modules" >/dev/null 2>&1; then
     .venv/bin/pip install -q -r requirements.txt
   fi
   [ -f stock_learning.db ] || ./rebuild.sh
+  if [ ! -f stocks.db ] && [ -d data/stocks/daily ]; then
+    echo "[start] 首次运行，构建个股库（约 1 分钟）"
+    .venv/bin/python scripts/build_stocks_db.py
+  fi
   nohup .venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000 > server.log 2>&1 &
   for i in $(seq 1 30); do
     curl -sf "$URL/api/modules" >/dev/null 2>&1 && break

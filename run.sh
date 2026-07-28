@@ -14,5 +14,9 @@ if [ ! -f stock_learning.db ]; then
   echo "[run] 首次运行，重建数据库"
   ./rebuild.sh
 fi
+if [ ! -f stocks.db ] && [ -d data/stocks/daily ]; then
+  echo "[run] 首次运行，构建个股库（约 1 分钟）"
+  .venv/bin/python scripts/build_stocks_db.py
+fi
 echo "[run] 启动: http://127.0.0.1:8000"
 exec .venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000

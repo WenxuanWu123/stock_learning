@@ -117,7 +117,7 @@
   /* ── 关卡列表 ── */
   function renderLevels() {
     api('/api/levels').then(function (d) {
-      var html = '<div class="module-title">B 型 · K线实战演练</div>';
+      var html = '<div class="module-title">例子 · 真实历史决策演练</div>';
       if (!d.levels.length) html += '<div class="muted">暂无关卡</div>';
       d.levels.forEach(function (l) {
         html += '<a class="chapter-link" href="#/level/' + l.id + '"><span>' +

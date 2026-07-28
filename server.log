@@ -84,3 +84,41 @@ INFO:     127.0.0.1:62826 - "GET /static/app.js?v=6 HTTP/1.1" 200 OK
 INFO:     127.0.0.1:62825 - "GET /api/lab?symbol=sh000001&days=250&ma1=5&ma2=20&indicator=macd&fast=12&slow=26&signal=9 HTTP/1.1" 200 OK
 INFO:     127.0.0.1:62825 - "GET /favicon.ico HTTP/1.1" 404 Not Found
 INFO:     127.0.0.1:54815 - "GET /static/lab.js?v=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61046 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61046 - "GET /static/style.css?v=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61049 - "GET /static/lab.js?v=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61048 - "GET /static/screener.js?v=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61047 - "GET /static/chart.js?v=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61050 - "GET /static/app.js?v=7 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61049 - "GET /api/lab?symbol=sh000001&days=250&ma1=5&ma2=20&indicator=macd&fast=12&slow=26&signal=9 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61049 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61049 - "GET /api/modules HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61049 - "GET /api/lab?symbol=sh000001&days=250&ma1=5&ma2=20&indicator=macd&fast=12&slow=26&signal=9 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61161 - "GET /api/lab?symbol=sh000001&days=250&ma1=5&ma2=20&indicator=macd&fast=12&slow=26&signal=9 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61168 - "GET /api/wrongbook HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61168 - "GET /api/stats HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61168 - "GET /api/levels HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61182 - "GET /api/levels/1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49792 - "POST /api/levels/1/submit HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49869 - "GET /api/levels HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60066 - "GET /api/levels/2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53094 - "POST /api/levels/2/submit HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53177 - "GET /api/levels HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53182 - "GET /api/levels/3 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55761 - "GET /api/lab?symbol=sh000001&days=250&ma1=5&ma2=20&indicator=macd&fast=12&slow=26&signal=9 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55761 - "GET /api/lab?symbol=sh000001&days=250&ma1=42&ma2=20&indicator=macd&fast=12&slow=26&signal=9 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55761 - "GET /api/lab?symbol=sh000001&days=250&ma1=23&ma2=20&indicator=macd&fast=12&slow=26&signal=9 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55761 - "GET /api/lab?symbol=sh000001&days=250&ma1=28&ma2=20&indicator=macd&fast=12&slow=26&signal=9 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55761 - "GET /api/lab?symbol=sh000001&days=250&ma1=9&ma2=20&indicator=macd&fast=12&slow=26&signal=9 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55761 - "GET /api/lab?symbol=sh000001&days=250&ma1=6&ma2=20&indicator=macd&fast=12&slow=26&signal=9 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55761 - "GET /api/lab?symbol=sh000001&days=250&ma1=5&ma2=20&indicator=macd&fast=12&slow=26&signal=9 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55163 - "GET /api/modules HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55181 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55181 - "GET /static/chart.js?v=7 HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:55182 - "GET /static/lab.js?v=7 HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:55183 - "GET /static/screener.js?v=7 HTTP/1.1" 304 Not Modified
+INFO:     127.0.0.1:55184 - "GET /api/modules HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55184 - "GET /api/lab?symbol=sh000001&days=250&ma1=5&ma2=20&indicator=macd&fast=12&slow=26&signal=9 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55561 - "GET /api/chapters/6/lesson HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52002 - "POST /api/screener HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52083 - "GET /api/levels HTTP/1.1" 200 OK
