@@ -186,3 +186,5 @@ table.scr-hits td, table.scr-hits th {
   text-align: right; white-space: nowrap;
 }
 table.scr-hits td.l, table.scr-hits th.l { text-align: left; }
+
+.chapter-status { margin-top: 3px; font-size: 12px; }

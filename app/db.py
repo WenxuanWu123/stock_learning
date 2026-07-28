@@ -93,6 +93,12 @@ CREATE TABLE wrongbook (
     wrong_count INTEGER NOT NULL DEFAULT 1,
     last_ts     TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))
 );
+
+-- 课文阅读记录（每打开一次一课记一行）
+CREATE TABLE lesson_reads (
+    chapter_id INTEGER NOT NULL REFERENCES chapters(id),
+    ts         TEXT NOT NULL DEFAULT (datetime('now', 'localtime'))
+);
 """
 
 

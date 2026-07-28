@@ -28,7 +28,14 @@ def list_modules():
     mods = []
     for m in conn.execute("SELECT * FROM modules ORDER BY ord"):
         chaps = conn.execute(
-            "SELECT id, slug, title, ord FROM chapters WHERE module_id=? ORDER BY ord",
+            "SELECT c.id, c.slug, c.title, c.ord,"
+            " (SELECT COUNT(*) FROM lesson_reads r WHERE r.chapter_id=c.id) reads,"
+            " (SELECT COUNT(*) FROM answers a JOIN questions q ON q.id=a.question_id"
+            "   WHERE q.chapter_id=c.id) answered,"
+            " (SELECT COALESCE(SUM(a.correct),0) FROM answers a JOIN questions q"
+            "   ON q.id=a.question_id WHERE q.chapter_id=c.id) correct,"
+            " (SELECT COUNT(*) FROM questions q WHERE q.chapter_id=c.id) total"
+            " FROM chapters c WHERE c.module_id=? ORDER BY c.ord",
             (m["id"],)).fetchall()
         mods.append({"id": m["id"], "slug": m["slug"], "title": m["title"],
                      "chapters": [dict(c) for c in chaps]})
@@ -43,9 +50,12 @@ def get_lesson(chapter_id: int):
         "SELECT c.title, l.rendered_html, l.sources_json FROM lessons l"
         " JOIN chapters c ON c.id=l.chapter_id WHERE l.chapter_id=?",
         (chapter_id,)).fetchone()
-    conn.close()
     if not row:
+        conn.close()
         raise HTTPException(404, "章节不存在")
+    conn.execute("INSERT INTO lesson_reads (chapter_id) VALUES (?)", (chapter_id,))
+    conn.commit()
+    conn.close()
     return {"title": row["title"], "html": row["rendered_html"],
             "sources": json.loads(row["sources_json"])}
 

@@ -46,7 +46,17 @@
           html += '<div class="muted">（内容建设中）</div>';
         }
         m.chapters.forEach(function (c) {
-          html += '<div class="chapter-link"><span>' + esc(c.title) + '</span>' +
+          var st;
+          if (!c.reads && !c.answered) st = '未开始';
+          else {
+            var parts = [];
+            if (c.reads) parts.push('已阅读 ' + c.reads + ' 次');
+            if (c.answered >= c.total && c.total) parts.push('答题已完成 · 对 ' + c.correct + '/' + c.total);
+            else if (c.answered) parts.push('已答 ' + c.answered + '/' + c.total);
+            st = parts.join(' · ');
+          }
+          html += '<div class="chapter-link"><span>' + esc(c.title) +
+            '<div class="muted chapter-status">' + esc(st) + '</div></span>' +
             '<span class="actions"><a href="#/lesson/' + c.id + '">读课文</a>' +
             '<a href="#/quiz/' + c.id + '">闯关答题</a></span></div>';
         });
